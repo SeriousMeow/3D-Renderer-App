@@ -10,3 +10,5 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(Renderer)
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui)

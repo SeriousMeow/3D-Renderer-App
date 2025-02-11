@@ -29,3 +29,7 @@ This project uses the following third-party libraries:
 - Renderer: MIT License.
   This project uses Renderer, which includes OpenGL Mathematics (GLM), licensed under the Modified MIT License ("The Happy Bunny License").
   See the [Renderer repository](https://github.com/SeriousMeow/3D-Renderer) for details, including the full text of the MIT license and the GLM license.
+
+- Qt6: GNU Lesser General Public License (LGPL) version 3.
+  This project uses Qt6, which is licensed under the GNU Lesser General Public License (LGPL) version 3.
+  For more information about the LGPL license, please visit the [Qt Licensing page](https://www.qt.io/qt-licensing) or refer to the full text of the LGPL license included with the Qt6 installation.
