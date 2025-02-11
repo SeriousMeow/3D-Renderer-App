@@ -30,6 +30,9 @@ target_include_directories(
 
 target_compile_features(Renderer_App_lib PUBLIC cxx_std_20)
 
+target_include_directories(Renderer_App_lib INTERFACE "${Renderer_SOURCE_DIR}/source/")
+target_link_libraries(Renderer_App_lib PRIVATE Renderer::Renderer)
+
 # ---- Declare executable ----
 
 add_executable(Renderer_App_exe)
