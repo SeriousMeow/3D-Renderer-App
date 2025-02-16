@@ -29,8 +29,9 @@ set_property(TARGET Renderer_App_exe PROPERTY OUTPUT_NAME Renderer_App)
 target_compile_features(Renderer_App_exe PRIVATE cxx_std_20)
 
 target_include_directories(Renderer_App_exe
-                           INTERFACE "${Renderer_SOURCE_DIR}/source/")
+                           PRIVATE "${Renderer_SOURCE_DIR}/source/")
 target_link_libraries(Renderer_App_exe PRIVATE Renderer::Renderer)
+target_link_libraries(Renderer_App_exe PRIVATE Qt6::Widgets)
 
 # ---- Add sources ----
 
