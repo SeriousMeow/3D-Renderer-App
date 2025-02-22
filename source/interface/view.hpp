@@ -7,6 +7,10 @@
 
 #include <QLabel>
 #include <renderer/image.hpp>
+#include <renderer/renderer.hpp>
+#include <renderer/scene.hpp>
+
+#include "../utils/ports.hpp"
 
 namespace app {
 
@@ -31,8 +35,29 @@ public:
      */
     void Draw(const renderer::Image& image);
 
+    /**
+     * @brief Получение указателя на порт сцены
+     *
+     * Возвращает указатель на входной порт для подключения сцены
+     *
+     * @return Указатель на порт сцены
+     */
+    ports::PortIn<renderer::Scene>* GetScenePort();
+
 private:
+    /**
+     * @brief Рендеринг сцены
+     *
+     * Рендерит переданную сцену с использованием сохраненной камеры
+     *
+     * @param[in] scene Сцена для рендеринга
+     */
+    void RenderScene(const renderer::Scene& scene);
+
     QLabel* render_region_;
+    ports::PortIn<renderer::Scene> scene_port_;
+    renderer::Scene::CameraId camera_id_ = 0;
+    renderer::Renderer renderer_;
 };
 
 }  // namespace app

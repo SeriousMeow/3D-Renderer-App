@@ -2,7 +2,13 @@
 
 namespace app {
 
-View::View(QLabel* render_region) : render_region_{render_region} {
+View::View(QLabel* render_region)
+    : render_region_{render_region},
+      scene_port_{[this](const renderer::Scene& scene) { RenderScene(scene); },
+                  [this](const renderer::Scene& scene) { RenderScene(scene); },
+                  [this](const renderer::Scene& scene) { RenderScene(scene); }
+
+      } {
     {
         assert(render_region and "View: render_region не может быть nullptr");
     }
@@ -29,6 +35,20 @@ void View::Draw(const renderer::Image& image) {
     }
     QPixmap output;
     render_region_->setPixmap(output.fromImage(intermediate_image));
+}
+
+ports::PortIn<renderer::Scene>* View::GetScenePort() {
+    return &scene_port_;
+}
+
+void View::RenderScene(const renderer::Scene& scene) {
+    QSize region_size = render_region_->size();
+    renderer::Image image{renderer::Width{static_cast<size_t>(region_size.width())},
+                          renderer::Height{static_cast<size_t>(region_size.height())}};
+    if (scene.HasCamera(camera_id_)) {
+        image = renderer_.Render(scene, camera_id_, std::move(image));
+    }
+    Draw(image);
 }
 
 }  // namespace app

@@ -7,13 +7,26 @@
 
 #include <renderer/scene.hpp>
 
+#include "../utils/ports.hpp"
+
 namespace app {
 namespace models {
-
+/**
+ * @brief 3D сцена
+ */
 class Scene {
 public:
+    /**
+     * @brief Подписываение порта сцены
+     *
+     * Подписывает переданный порт на ищменения сцены
+     *
+     * @param[in] port Порт для подписания
+     */
+    void SubscribeScenePort(ports::PortIn<renderer::Scene>* port);
+
 private:
-    renderer::Scene scene_;
+    ports::PortOut<renderer::Scene> scene_;
 };
 
 }  // namespace models

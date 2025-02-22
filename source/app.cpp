@@ -2,7 +2,8 @@
 
 namespace app {
 
-App::App() : AppKernel(), AppGUI() {
+App::App() : AppKernel{}, AppGUI{} {
+    scene_.SubscribeScenePort(view_.GetScenePort());
 }
 
 }  // namespace app
