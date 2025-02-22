@@ -23,13 +23,9 @@ void View::Draw(const renderer::Image& image) {
     // Чтобы избавиться от проверок со стороны Qt, запись идет сразу во внутреннюю память
     // Для Format_RGB32 пиксели хранятся строками сверху вниз
     QRgb* intermediate_data = reinterpret_cast<QRgb*>(intermediate_image.bits());
-    for (size_t y = 0; y < image.GetHeight(); ++y) {
-        for (size_t x = 0; x < image.GetWidth(); ++x) {
-            const renderer::Image::Pixel pixel = image.GetPixel(x, y);
-            intermediate_data[y * image.GetWidth() + x] =
-                qRgb(static_cast<int>(pixel.r * 225), static_cast<int>(pixel.g * 225),
-                     static_cast<int>(pixel.b * 225));
-        }
+    const renderer::Image::Pixel* image_data = image.AccessData();
+    for (size_t i = 0; i < image.GetHeight() * image.GetWidth(); ++i) {
+        intermediate_data[i] = qRgb(image_data[i].r, image_data[i].g, image_data[i].b);
     }
     QPixmap output;
     render_region_->setPixmap(output.fromImage(intermediate_image));
