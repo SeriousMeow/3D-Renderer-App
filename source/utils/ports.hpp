@@ -235,9 +235,6 @@ public:
      */
     template <class T>
     PortOut(T&& data) : data_{std::forward<T>(data)} {
-        {
-            assert(data and "PortOut: данные не должны быть пустыми");
-        }
     }
 
     PortOut(const PortOut&) = delete;

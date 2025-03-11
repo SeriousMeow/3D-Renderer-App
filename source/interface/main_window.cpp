@@ -2,14 +2,15 @@
 
 #include "ui_main_window.h"
 
-namespace app {
+namespace app::gui {
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui_(new Ui::MainWindow) {
     ui_->setupUi(this);
+    show();
 }
 
-QLabel* MainWindow::RenderRegion() const {
-    return ui_->RenderRegion;
+Ui::MainWindow* MainWindow::AccessUi() {
+    return ui_.get();
 }
 
-}  // namespace app
+}  // namespace app::gui

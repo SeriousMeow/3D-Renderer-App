@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include "controllers/engine_controller.hpp"
+#include "interface/camera_info.hpp"
 #include "interface/main_window.hpp"
 #include "interface/view.hpp"
 
@@ -14,11 +16,18 @@ namespace app {
  */
 class AppGUI {
 public:
-    AppGUI();
+    /**
+     * @brief Инициализирует интерфейс приложения
+     *
+     * @param[in] engine Движок
+     */
+    AppGUI(models::Engine* engine);
 
 protected:
-    MainWindow main_window_;
-    View view_;
+    gui::MainWindow main_window_;
+    gui::View view_;
+    gui::CameraInfo camera_info_;
+    controllers::EngineController engine_controller_;
 };
 
 }  // namespace app

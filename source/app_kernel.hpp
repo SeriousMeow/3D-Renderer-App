@@ -5,7 +5,8 @@
 
 #pragma once
 
-#include "models/3D_scene.hpp"
+#include "models/3D_engine.hpp"
+#include "models/camera_monitor.hpp"
 
 namespace app {
 /**
@@ -16,7 +17,8 @@ public:
     AppKernel();
 
 protected:
-    app::models::Scene scene_;
+    models::Engine engine_;
+    models::CameraMonitor camera_monitor_;
 };
 
 }  // namespace app

@@ -1,12 +1,12 @@
 #include "view.hpp"
 
-namespace app {
+namespace app::gui {
 
 View::View(QLabel* render_region)
     : render_region_{render_region},
-      scene_port_{[this](const renderer::Scene& scene) { RenderScene(scene); },
-                  [this](const renderer::Scene& scene) { RenderScene(scene); },
-                  [this](const renderer::Scene& scene) { RenderScene(scene); }
+      image_port_{[this](const renderer::Image& image) { Draw(image); },
+                  [this](const renderer::Image& image) { Draw(image); },
+                  [this](const renderer::Image& image) { Draw(image); }
 
       } {
     {
@@ -15,6 +15,9 @@ View::View(QLabel* render_region)
 }
 
 void View::Draw(const renderer::Image& image) {
+    if (image.GetWidth() == 0 or image.GetHeight() == 0) {
+        return;
+    }
     {
         assert(render_region_ and "View: render_region не может быть nullptr");
         assert((image.GetWidth() == render_region_->size().width()) and
@@ -37,18 +40,8 @@ void View::Draw(const renderer::Image& image) {
     render_region_->setPixmap(output.fromImage(intermediate_image));
 }
 
-ports::PortIn<renderer::Scene>* View::GetScenePort() {
-    return &scene_port_;
+ports::PortIn<renderer::Image>* View::GetImagePort() {
+    return &image_port_;
 }
 
-void View::RenderScene(const renderer::Scene& scene) {
-    QSize region_size = render_region_->size();
-    renderer::Image image{renderer::Width{static_cast<size_t>(region_size.width())},
-                          renderer::Height{static_cast<size_t>(region_size.height())}};
-    if (scene.HasCamera(camera_id_)) {
-        image = renderer_.Render(scene, camera_id_, std::move(image));
-    }
-    Draw(image);
-}
-
-}  // namespace app
+}  // namespace app::gui

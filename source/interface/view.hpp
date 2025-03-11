@@ -14,6 +14,7 @@
 
 namespace app {
 
+namespace gui {
 /**
  * @brief Класс взаимодействия с областью отрисовки
  */
@@ -27,6 +28,16 @@ public:
     explicit View(QLabel* render_region);
 
     /**
+     * @brief Получение указателя на порт сцены
+     *
+     * Возвращает указатель на входной порт для подключения сцены
+     *
+     * @return Указатель на порт сцены
+     */
+    ports::PortIn<renderer::Image>* GetImagePort();
+
+private:
+    /**
      * @brief Отрисовка изображения
      *
      * Требуется, чтобы размеры изображения совпадали с размером области отрисовки
@@ -34,30 +45,8 @@ public:
      * @param[in] image Изображение
      */
     void Draw(const renderer::Image& image);
-
-    /**
-     * @brief Получение указателя на порт сцены
-     *
-     * Возвращает указатель на входной порт для подключения сцены
-     *
-     * @return Указатель на порт сцены
-     */
-    ports::PortIn<renderer::Scene>* GetScenePort();
-
-private:
-    /**
-     * @brief Рендеринг сцены
-     *
-     * Рендерит переданную сцену с использованием сохраненной камеры
-     *
-     * @param[in] scene Сцена для рендеринга
-     */
-    void RenderScene(const renderer::Scene& scene);
-
     QLabel* render_region_;
-    ports::PortIn<renderer::Scene> scene_port_;
-    renderer::Scene::CameraId camera_id_ = 0;
-    renderer::Renderer renderer_;
+    ports::PortIn<renderer::Image> image_port_;
 };
-
+}  // namespace gui
 }  // namespace app
