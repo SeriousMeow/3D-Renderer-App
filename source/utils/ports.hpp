@@ -104,6 +104,8 @@ class PortIn {
     friend CPortOut;
 
 public:
+    using ReturnType = CPassType;
+
     /**
      * @brief Создание порта
      *
@@ -153,6 +155,21 @@ public:
      */
     bool IsSubscribed() const {
         return connected_to_ != nullptr;
+    }
+
+    /**
+     * @brief Получение данных
+     *
+     * Возвращает копию данных PortOut или константную ссылку на данные PortOut (в зависимости от
+     * выбранного типа передачи). Требуется, чтобы порт был подписан
+     *
+     * @return Данные PortOut
+     */
+    ReturnType GetData() const {
+        {
+            assert(IsSubscribed() and "GetData: порт должен быть подписан");
+        }
+        return connected_to_->data_;
     }
 
 private:
