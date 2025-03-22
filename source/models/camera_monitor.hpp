@@ -87,12 +87,10 @@ private:
      *
      * Обновляет значения в выходных портах
      */
-    void UpdateData(const Scene& scene);
+    void UpdateData();
 
     ports::PortIn<Scene> scene_;               // информация изменения сцены
     ports::PortIn<CameraId> selected_camera_;  // информация смены камеры
-
-    CameraId camera_id_;
 
     ports::PortOut<renderer::Point> camera_position_;  // позиция камеры
     ports::PortOut<CameraAngles> camera_angles_;       // углы камеры

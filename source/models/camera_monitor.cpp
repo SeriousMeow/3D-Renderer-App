@@ -3,16 +3,11 @@
 namespace app::models {
 
 CameraMonitor::CameraMonitor()
-    : scene_{[this](const Scene& scene) { UpdateData(scene); },
+    : scene_{[this](const Scene&) { UpdateData(); }, [this](const Scene&) { UpdateData(); },
+             [this](const Scene& scene) { UpdateData(); }},
 
-             [this](const Scene& scene) { UpdateData(scene); },
-
-             [this](const Scene& scene) { UpdateData(scene); }},
-      selected_camera_{[this](CameraId camera_id) { camera_id_ = camera_id; },
-                       [this](CameraId camera_id) { camera_id_ = camera_id; },
-                       [this](CameraId camera_id) { camera_id_ = camera_id; }
-
-      } {
+      selected_camera_{[this](CameraId) { UpdateData(); }, [this](CameraId) { UpdateData(); },
+                       [this](CameraId) { UpdateData(); }} {
 }
 
 void CameraMonitor::SubscribeCameraPosition(ports::PortIn<renderer::Point>* port) {
@@ -31,15 +26,18 @@ ports::PortIn<CameraMonitor::CameraId>* CameraMonitor::GetCameraPort() {
     return &selected_camera_;
 }
 
-void CameraMonitor::UpdateData(const Scene& scene) {
+void CameraMonitor::UpdateData() {
+    if (not scene_.IsSubscribed()) {  // нет сцены - нет работы
+        return;
+    }
     if (not selected_camera_.IsSubscribed()) {  // не подключена камера - работы нет
         return;
     }
     {
-        assert((scene.HasCamera(camera_id_)) and
+        assert((scene_.GetData().HasCamera(selected_camera_.GetData())) and
                "CameraMonitor: передаваемая камера должна находиться в сцене");
     }
-    const renderer::Camera& camera = scene.AccessCamera(camera_id_);
+    const renderer::Camera& camera = scene_.GetData().AccessCamera(selected_camera_.GetData());
     camera_position_.GetHandle().AccessData() = camera.GetPosition();
     auto angles_handle = camera_angles_.GetHandle();
     angles_handle.AccessData().yaw = camera.GetYaw();
