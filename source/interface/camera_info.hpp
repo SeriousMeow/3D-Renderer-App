@@ -21,7 +21,7 @@ public:
     using CameraAngles = models::CameraMonitor::CameraAngles;
 
     /**
-     * @brief Создает CameraInfo
+     * @brief Создание CameraInfo
      *
      * @param[in] x Поле ввода x
      * @param[in] y Поле ввода y

@@ -8,6 +8,7 @@
 #include "controllers/engine_controller.hpp"
 #include "interface/camera_info.hpp"
 #include "interface/main_window.hpp"
+#include "interface/object_info.hpp"
 #include "interface/view.hpp"
 
 namespace app {
@@ -27,6 +28,7 @@ protected:
     gui::MainWindow main_window_;
     gui::View view_;
     gui::CameraInfo camera_info_;
+    gui::ObjectInfo object_info_;
     controllers::EngineController engine_controller_;
 };
 

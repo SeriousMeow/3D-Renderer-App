@@ -36,6 +36,13 @@ EngineController::EngineController(models::Engine* engine, Ui::MainWindow* ui)
     connect(ui->CameraRotateRight, &QPushButton::clicked, this,
             &EngineController::RotateCameraRight);
     connect(ui->CameraRotateLeft, &QPushButton::clicked, this, &EngineController::RotateCameraLeft);
+
+    connect(ui->ObjectUpdatePosition, &QPushButton::clicked, this,
+            &EngineController::ChangeObjectPosition);
+    connect(ui->ObjectUpdateAngles, &QPushButton::clicked, this,
+            &EngineController::ChangeObjectAngles);
+    connect(ui->ObjectUpdateScale, &QPushButton::clicked, this,
+            &EngineController::ChangeObjectScale);
 }
 
 void EngineController::LoadFile(bool) {
@@ -73,43 +80,115 @@ void EngineController::ChangeCameraAngles(bool) {
 }
 
 void EngineController::MoveCameraForward(bool) {
+    {
+        assert(engine_ and "MoveCameraForward: engine не может быть nullptr");
+        assert(ui_ and "MoveCameraForward: ui не может быть nullptr");
+    }
+
     engine_->MoveCamera(ui_->TranslateStep->value(), 0, 0);
 }
 
 void EngineController::MoveCameraBackward(bool) {
+    {
+        assert(engine_ and "MoveCameraBackward: engine не может быть nullptr");
+        assert(ui_ and "MoveCameraBackward: ui не может быть nullptr");
+    }
     engine_->MoveCamera(-(ui_->TranslateStep->value()), 0, 0);
 }
 
 void EngineController::MoveCameraRight(bool) {
+    {
+        assert(engine_ and "MoveCameraRight: engine не может быть nullptr");
+        assert(ui_ and "MoveCameraRight: ui не может быть nullptr");
+    }
     engine_->MoveCamera(0, ui_->TranslateStep->value(), 0);
 }
 
 void EngineController::MoveCameraLeft(bool) {
+    {
+        assert(engine_ and "MoveCameraLeft: engine не может быть nullptr");
+        assert(ui_ and "MoveCameraLeft: ui не может быть nullptr");
+    }
     engine_->MoveCamera(0, -(ui_->TranslateStep->value()), 0);
 }
 
 void EngineController::MoveCameraUp(bool) {
+    {
+        assert(engine_ and "MoveCameraUp: engine не может быть nullptr");
+        assert(ui_ and "MoveCameraUp: ui не может быть nullptr");
+    }
     engine_->MoveCamera(0, 0, ui_->TranslateStep->value());
 }
 
 void EngineController::MoveCameraDown(bool) {
+    {
+        assert(engine_ and "MoveCameraDown: engine не может быть nullptr");
+        assert(ui_ and "MoveCameraDown: ui не может быть nullptr");
+    }
     engine_->MoveCamera(0, 0, -(ui_->TranslateStep->value()));
 }
 
 void EngineController::RotateCameraUp(bool) {
+    {
+        assert(engine_ and "RotateCameraUp: engine не может быть nullptr");
+        assert(ui_ and "RotateCameraUp: ui не может быть nullptr");
+    }
     engine_->RotateCamera(0, ui_->RotateStep->value());
 }
 
 void EngineController::RotateCameraDown(bool) {
+    {
+        assert(engine_ and "RotateCameraDown: engine не может быть nullptr");
+        assert(ui_ and "RotateCameraDown: ui не может быть nullptr");
+    }
     engine_->RotateCamera(0, -(ui_->RotateStep->value()));
 }
 
 void EngineController::RotateCameraRight(bool) {
+    {
+        assert(engine_ and "RotateCameraRight: engine не может быть nullptr");
+        assert(ui_ and "RotateCameraRight: ui не может быть nullptr");
+    }
     engine_->RotateCamera(-(ui_->RotateStep->value()), 0);
 }
 
 void EngineController::RotateCameraLeft(bool) {
+    {
+        assert(engine_ and "RotateCameraLeft: engine не может быть nullptr");
+        assert(ui_ and "RotateCameraLeft: ui не может быть nullptr");
+    }
     engine_->RotateCamera(ui_->RotateStep->value(), 0);
+}
+
+void EngineController::ChangeObjectPosition(bool) {
+    {
+        assert(engine_ and "ChangeObjectPosition: engine не может быть nullptr");
+        assert(ui_ and "ChangeObjectPosition: ui не может быть nullptr");
+    }
+    float new_x = ui_->ObjectXSelector->value();
+    float new_y = ui_->ObjectYSelector->value();
+    float new_z = ui_->ObjectZSelector->value();
+    engine_->SetObjectPosition(renderer::Vector{new_x, new_y, new_z});
+}
+
+void EngineController::ChangeObjectAngles(bool) {
+    {
+        assert(engine_ and "ChangeObjectAngles: engine не может быть nullptr");
+        assert(ui_ and "ChangeObjectAngles: ui не может быть nullptr");
+    }
+    float new_x_angle = ui_->ObjectXAngleSelector->value();
+    float new_y_angle = ui_->ObjectYAngleSelector->value();
+    float new_z_angle = ui_->ObjectZAngleSelector->value();
+    engine_->SetObjectAngles(new_x_angle, new_y_angle, new_z_angle);
+}
+
+void EngineController::ChangeObjectScale(bool) {
+    {
+        assert(engine_ and "ChangeObjectScale: engine не может быть nullptr");
+        assert(ui_ and "ChangeObjectScale: ui не может быть nullptr");
+    }
+    float new_scale = ui_->ObjectScaleSelector->value();
+    engine_->SetObjectScale(new_scale);
 }
 
 }  // namespace app::controllers

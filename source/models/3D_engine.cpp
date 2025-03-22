@@ -1,6 +1,5 @@
 #include "3D_engine.hpp"
 
-#include <renderer/transform.hpp>
 #include <renderer/utils.hpp>
 
 namespace app::models {
@@ -48,8 +47,7 @@ void Engine::Resize(const Width width, const Height height) {
 void Engine::LoadObjectFromFile(const std::string& path) {
     try {
         renderer::Object new_object = renderer::utils::LoadObjFile(path);
-        ObjectId object_id = scene_.GetHandle().AccessData().PushObject(
-            new_object, renderer::transforms::kNoTransforms);
+        ObjectId object_id = scene_.GetHandle().AccessData().PushObject(new_object);
         available_objects_.GetHandle().AccessData().push_back(object_id);
         selected_object_.GetHandle().AccessData() = object_id;
     } catch (...) {
@@ -74,7 +72,7 @@ void Engine::SwitchObject(const ObjectId new_object_id) {
     scene_.Notify();  // подробнее в todo в private секции 3D_engine.hpp
 }
 
-void Engine::SetCameraPosition(const renderer::Vector& new_position) {
+void Engine::SetCameraPosition(const renderer::Point& new_position) {
     auto handle = scene_.GetHandle();
     renderer::Camera& camera = handle.AccessData().AccessCamera(selected_camera_.AccessData());
     camera.SetPosition(new_position);
@@ -101,6 +99,27 @@ void Engine::RotateCamera(const float yaw_offset, const float pitch_offset) {
     renderer::Camera& camera = handle.AccessData().AccessCamera(selected_camera_.AccessData());
     camera.AddYaw(yaw_offset);
     camera.AddPitch(pitch_offset);
+}
+
+void Engine::SetObjectPosition(const renderer::Point& new_position) {
+    auto handle = scene_.GetHandle();
+    renderer::SceneObject& object = handle.AccessData().AccessObject(selected_object_.AccessData());
+    object.AccessPosition() = new_position;
+}
+
+void Engine::SetObjectAngles(const float new_x_angle, const float new_y_angle,
+                             const float new_z_angle) {
+    auto handle = scene_.GetHandle();
+    renderer::SceneObject& object = handle.AccessData().AccessObject(selected_object_.AccessData());
+    object.AccessXAngle() = new_x_angle;
+    object.AccessYAngle() = new_y_angle;
+    object.AccessZAngle() = new_z_angle;
+}
+
+void Engine::SetObjectScale(const float new_scale) {
+    auto handle = scene_.GetHandle();
+    renderer::SceneObject& object = handle.AccessData().AccessObject(selected_object_.AccessData());
+    object.AccessScale() = new_scale;
 }
 
 void Engine::Render() {

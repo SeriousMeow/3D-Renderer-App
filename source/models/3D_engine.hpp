@@ -156,7 +156,7 @@ public:
      *
      * @param[in] new_position Новая позиция
      */
-    void SetCameraPosition(const renderer::Vector& new_position);
+    void SetCameraPosition(const renderer::Point& new_position);
 
     /**
      * @brief Установка новых углов выбранной камеры
@@ -191,6 +191,35 @@ public:
      * отрицательные - по часовой стрелке/вниз
      */
     void RotateCamera(const float yaw_offset, const float pitch_offset);
+
+    /**
+     * @brief Установка новой позиции выбранного объекта
+     *
+     * Перемещает текущий выбранный объект в заданную позицию
+     *
+     * @param[in] new_position Новая позиция
+     */
+    void SetObjectPosition(const renderer::Point& new_position);
+
+    /**
+     * @brief Установка новых углов выбранного объекта
+     *
+     * Меняет углы поворота текущего выбранного объекта на заданные
+     *
+     * @param[in] new_x_angle Новый угол поворота вокруг оси x
+     * @param[in] new_y_angle Новый угол поворота вокруг оси y
+     * @param[in] new_z_angle Новый угол поворота вокруг оси z
+     */
+    void SetObjectAngles(const float new_x_angle, const float new_y_angle, const float new_z_angle);
+
+    /**
+     * @brief Изменение масштаба выбранного объекта
+     *
+     * Меняет масштаб текущего выбранного объекта на заданный
+     *
+     * @param[in] new_scale Новый масштаб
+     */
+    void SetObjectScale(const float new_scale);
 
 private:
     /**

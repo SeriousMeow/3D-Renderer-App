@@ -5,7 +5,6 @@ namespace app::models {
 CameraMonitor::CameraMonitor()
     : scene_{[this](const Scene&) { UpdateData(); }, [this](const Scene&) { UpdateData(); },
              [this](const Scene& scene) { UpdateData(); }},
-
       selected_camera_{[this](CameraId) { UpdateData(); }, [this](CameraId) { UpdateData(); },
                        [this](CameraId) { UpdateData(); }} {
 }
@@ -39,6 +38,7 @@ void CameraMonitor::UpdateData() {
     }
     const renderer::Camera& camera = scene_.GetData().AccessCamera(selected_camera_.GetData());
     camera_position_.GetHandle().AccessData() = camera.GetPosition();
+
     auto angles_handle = camera_angles_.GetHandle();
     angles_handle.AccessData().yaw = camera.GetYaw();
     angles_handle.AccessData().pitch = camera.GetPitch();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -74,7 +74,7 @@
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QVBoxLayout" name="CameraControl">
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -86,7 +86,7 @@
            </widget>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_2">
+           <layout class="QGridLayout" name="CameraSetCoords">
             <item row="0" column="2">
              <widget class="QLabel" name="label_9">
               <property name="text">
@@ -220,7 +220,7 @@
            </widget>
           </item>
           <item>
-           <layout class="QFormLayout" name="formLayout_3">
+           <layout class="QFormLayout" name="CameraSetSteps">
             <item row="0" column="1">
              <widget class="QDoubleSpinBox" name="TranslateStep">
               <property name="minimum">
@@ -250,21 +250,21 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Шаг сдвига</string>
+               <string>Шаг сдвига:</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>Шаг поворота</string>
+               <string>Шаг поворота:</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout">
+           <layout class="QGridLayout" name="CameraMovement">
             <item row="3" column="1">
              <widget class="QPushButton" name="CameraMoveBackward">
               <property name="text">
@@ -395,7 +395,7 @@
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QVBoxLayout" name="ObjectControl">
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
@@ -405,6 +405,150 @@
              <set>Qt::AlignmentFlag::AlignCenter</set>
             </property>
            </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="4">
+             <widget class="QLabel" name="ObjectScaleLabel">
+              <property name="text">
+               <string>Масштаб:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="ObjectUpdatePosition">
+              <property name="text">
+               <string>Установить координаты</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QDoubleSpinBox" name="ObjectXSelector">
+              <property name="minimum">
+               <double>-1000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="ObjectZLabel">
+              <property name="text">
+               <string>z:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QPushButton" name="ObjectUpdateAngles">
+              <property name="text">
+               <string>Установить углы</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QDoubleSpinBox" name="ObjectZSelector">
+              <property name="minimum">
+               <double>-1000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QDoubleSpinBox" name="ObjectYAngleSelector">
+              <property name="minimum">
+               <double>-10000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>10000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QDoubleSpinBox" name="ObjectYSelector">
+              <property name="minimum">
+               <double>-1000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="ObjectZAngleLabel">
+              <property name="text">
+               <string>Поворот z:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="ObjectYLabel">
+              <property name="text">
+               <string>y:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QDoubleSpinBox" name="ObjectXAngleSelector">
+              <property name="minimum">
+               <double>-10000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>10000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QDoubleSpinBox" name="ObjectZAngleSelector">
+              <property name="minimum">
+               <double>-10000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>10000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="ObjectYAngleLabel">
+              <property name="text">
+               <string>Поворот y:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="ObjectXAngleLabel">
+              <property name="text">
+               <string>Поворот x:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="ObjectXLabel">
+              <property name="text">
+               <string>x:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QDoubleSpinBox" name="ObjectScaleSelector">
+              <property name="maximum">
+               <double>100.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QPushButton" name="ObjectUpdateScale">
+              <property name="text">
+               <string>Установить масштаб</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

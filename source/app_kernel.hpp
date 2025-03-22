@@ -7,6 +7,7 @@
 
 #include "models/3D_engine.hpp"
 #include "models/camera_monitor.hpp"
+#include "models/object_monitor.hpp"
 
 namespace app {
 /**
@@ -19,6 +20,7 @@ public:
 protected:
     models::Engine engine_;
     models::CameraMonitor camera_monitor_;
+    models::ObjectMonitor object_monitor_;
 };
 
 }  // namespace app
