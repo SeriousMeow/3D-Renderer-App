@@ -9,8 +9,8 @@ Engine::Engine()
                        [this](const Scene&) { Render(); }},
       rendered_image_{Image{renderer::Width{0}, renderer::Height{0}}} {
     CameraId camera_id = scene_.GetHandle().AccessData().PushCamera(renderer::Camera{});
-    selected_camera_.GetHandle().AccessData() = camera_id;
     available_cameras_.GetHandle().AccessData().push_back(camera_id);
+    selected_camera_.GetHandle().AccessData() = camera_id;
     scene_.Subscribe(&on_scene_change_);
 }
 
@@ -42,6 +42,16 @@ void Engine::Resize(const Width width, const Height height) {
     width_ = width;
     height_ = height;
     scene_.Notify();  // подробнее в todo в private секции 3D_engine.hpp
+}
+
+void Engine::SpawnCamera() {
+    CameraId new_camera;
+    {
+        auto handle = scene_.GetHandle();
+        new_camera = handle.AccessData().PushCamera(renderer::Camera{});
+    }
+    available_cameras_.GetHandle().AccessData().push_back(new_camera);
+    selected_camera_.GetHandle().AccessData() = new_camera;
 }
 
 void Engine::LoadObjectFromFile(const std::string& path) {

@@ -13,6 +13,12 @@ App::App() : AppKernel{}, AppGUI{&engine_} {
     object_monitor_.SubscribeObjectPosition(object_info_.GetObjectPositionPort());
     object_monitor_.SubscribeObjectAngles(object_info_.GetObjectAnglesPort());
     object_monitor_.SubscribeObjectScale(object_info_.GetObjectScalePort());
+
+    engine_.SubscribeAvailableObjects(objects_list_.GetObjectsListPort());
+    engine_.SubscribeSelectedObject(objects_list_.GetObjectPort());
+
+    engine_.SubscribeAvailableCameras(cameras_list_.GetCamerasListPort());
+    engine_.SubscribeSelectedCamera(cameras_list_.GetCameraPort());
 }
 
 }  // namespace app

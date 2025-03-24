@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>720</height>
+    <height>740</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -86,11 +86,68 @@
            </widget>
           </item>
           <item>
+           <widget class="QListWidget" name="CameraSelector"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="SpawnCamera">
+            <property name="text">
+             <string>Добавить камеру</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QGridLayout" name="CameraSetCoords">
+            <item row="0" column="3">
+             <widget class="QDoubleSpinBox" name="CameraYawSelector">
+              <property name="minimum">
+               <double>-1000000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>100000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QPushButton" name="CameraUpdateAngles">
+              <property name="text">
+               <string>Установить углы</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QDoubleSpinBox" name="CameraYSelector">
+              <property name="minimum">
+               <double>-1000.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="2">
              <widget class="QLabel" name="label_9">
               <property name="text">
                <string>Рыскание:</string>
+              </property>
+              <property name="margin">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QDoubleSpinBox" name="CameraPitchSelector">
+              <property name="minimum">
+               <double>-90.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>90.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>z:</string>
               </property>
               <property name="margin">
                <number>1</number>
@@ -107,8 +164,8 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QDoubleSpinBox" name="CameraXSelector">
+            <item row="2" column="1">
+             <widget class="QDoubleSpinBox" name="CameraZSelector">
               <property name="minimum">
                <double>-1000.000000000000000</double>
               </property>
@@ -121,16 +178,6 @@
              <widget class="QPushButton" name="CameraUpdatePosition">
               <property name="text">
                <string>Установить координаты</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QDoubleSpinBox" name="CameraZSelector">
-              <property name="minimum">
-               <double>-1000.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>1000.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -160,50 +207,13 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QDoubleSpinBox" name="CameraYSelector">
+            <item row="0" column="1">
+             <widget class="QDoubleSpinBox" name="CameraXSelector">
               <property name="minimum">
                <double>-1000.000000000000000</double>
               </property>
               <property name="maximum">
                <double>1000.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>z:</string>
-              </property>
-              <property name="margin">
-               <number>1</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QDoubleSpinBox" name="CameraYawSelector">
-              <property name="minimum">
-               <double>-1000000.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>100000.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QDoubleSpinBox" name="CameraPitchSelector">
-              <property name="minimum">
-               <double>-90.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>90.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QPushButton" name="CameraUpdateAngles">
-              <property name="text">
-               <string>Установить углы</string>
               </property>
              </widget>
             </item>
@@ -405,6 +415,9 @@
              <set>Qt::AlignmentFlag::AlignCenter</set>
             </property>
            </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="ObjectSelector"/>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout">

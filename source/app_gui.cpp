@@ -17,7 +17,8 @@ AppGUI::AppGUI(models::Engine* engine)
           main_window_.AccessUi()->ObjectZAngleSelector,
           main_window_.AccessUi()->ObjectScaleSelector,
       },
-
+      objects_list_{main_window_.AccessUi()->ObjectSelector},
+      cameras_list_{main_window_.AccessUi()->CameraSelector},
       engine_controller_{engine, main_window_.AccessUi()} {
 }
 

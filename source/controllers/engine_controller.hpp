@@ -9,6 +9,7 @@
 
 #include "../interface/ui_main_window.h"
 #include "../models/3D_engine.hpp"
+#include "qlistwidget.h"
 
 namespace app {
 /**
@@ -111,6 +112,21 @@ private slots:
      * Срабатывает при нажатии кнопки "Установить масштаб" для объекта
      */
     void ChangeObjectScale(bool);
+
+    /**
+     * Срабатывает при смене камеры в интерфейсе
+     */
+    void ChangeCamera(QListWidgetItem* current, QListWidgetItem*);
+
+    /**
+     * Срабатывает при смене объекта в интерфейсе
+     */
+    void ChangeObject(QListWidgetItem* current, QListWidgetItem*);
+
+    /**
+     * Срабатывает при нажатии кнопки "Добавить камеру"
+     */
+    void SpawnCamera(bool);
 
 private:
     models::Engine* engine_;

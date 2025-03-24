@@ -43,6 +43,13 @@ EngineController::EngineController(models::Engine* engine, Ui::MainWindow* ui)
             &EngineController::ChangeObjectAngles);
     connect(ui->ObjectUpdateScale, &QPushButton::clicked, this,
             &EngineController::ChangeObjectScale);
+
+    connect(ui->CameraSelector, &QListWidget::currentItemChanged, this,
+            &EngineController::ChangeCamera);
+    connect(ui->ObjectSelector, &QListWidget::currentItemChanged, this,
+            &EngineController::ChangeObject);
+
+    connect(ui->SpawnCamera, &QPushButton::clicked, this, &EngineController::SpawnCamera);
 }
 
 void EngineController::LoadFile(bool) {
@@ -189,6 +196,29 @@ void EngineController::ChangeObjectScale(bool) {
     }
     float new_scale = ui_->ObjectScaleSelector->value();
     engine_->SetObjectScale(new_scale);
+}
+
+void EngineController::ChangeCamera(QListWidgetItem* current, QListWidgetItem*) {
+    {
+        assert(engine_ and "ChangeCamera: engine не может быть nullptr");
+    }
+    renderer::Scene::CameraId new_camera = current->text().toULong();
+    engine_->SwitchCamera(new_camera);
+}
+
+void EngineController::ChangeObject(QListWidgetItem* current, QListWidgetItem*) {
+    {
+        assert(engine_ and "ChangeObject: engine не может быть nullptr");
+    }
+    renderer::Scene::ObjectId new_object = current->text().toULong();
+    engine_->SwitchObject(new_object);
+}
+
+void EngineController::SpawnCamera(bool) {
+    {
+        assert(engine_ and "SpawnCamera: engine не может быть nullptr");
+    }
+    engine_->SpawnCamera();
 }
 
 }  // namespace app::controllers
