@@ -4,7 +4,7 @@ namespace app::models {
 
 CameraMonitor::CameraMonitor()
     : scene_{[this](const Scene&) { UpdateData(); }, [this](const Scene&) { UpdateData(); },
-             [this](const Scene& scene) { UpdateData(); }},
+             [this](const Scene&) { UpdateData(); }},
       selected_camera_{[this](CameraId) { UpdateData(); }, [this](CameraId) { UpdateData(); },
                        [this](CameraId) { UpdateData(); }} {
 }

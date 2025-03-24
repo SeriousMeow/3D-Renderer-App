@@ -46,10 +46,8 @@ void Engine::Resize(const Width width, const Height height) {
 
 void Engine::SpawnCamera() {
     CameraId new_camera;
-    {
-        auto handle = scene_.GetHandle();
-        new_camera = handle.AccessData().PushCamera(renderer::Camera{});
-    }
+    auto handle = scene_.GetHandle();
+    new_camera = handle.AccessData().PushCamera(renderer::Camera{});
     available_cameras_.GetHandle().AccessData().push_back(new_camera);
     selected_camera_.GetHandle().AccessData() = new_camera;
 }
