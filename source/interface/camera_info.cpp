@@ -1,5 +1,7 @@
 #include "camera_info.hpp"
 
+#include <QSignalBlocker>
+
 namespace app::gui {
 
 CameraInfo::CameraInfo(QDoubleSpinBox* x, QDoubleSpinBox* y, QDoubleSpinBox* z, QDoubleSpinBox* yaw,
@@ -40,6 +42,9 @@ void CameraInfo::UpdatePosition(const renderer::Point& position) {
         assert(y_field_ and "CameraInfo::UpdatePosition: y_field_ не должен быть nullptr");
         assert(z_field_ and "CameraInfo::UpdatePosition: z_field_ не должен быть nullptr");
     }
+    QSignalBlocker lock_x{x_field_};
+    QSignalBlocker lock_y{y_field_};
+    QSignalBlocker lock_z{z_field_};
     x_field_->setValue(position.x);
     y_field_->setValue(position.y);
     z_field_->setValue(position.z);
@@ -50,6 +55,8 @@ void CameraInfo::UpdateAngles(const CameraAngles& angles) {
         assert(yaw_field_ and "CameraInfo::UpdateAngles: yaw_field_ не должен быть nullptr");
         assert(pitch_field_ and "CameraInfo::UpdateAngles: pitch_field_ не должен быть nullptr");
     }
+    QSignalBlocker lock_yaw{yaw_field_};
+    QSignalBlocker lock_pitch{pitch_field_};
     yaw_field_->setValue(angles.yaw);
     pitch_field_->setValue(angles.pitch);
 }

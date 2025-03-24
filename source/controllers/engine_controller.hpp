@@ -39,14 +39,14 @@ private slots:
     void LoadFile(bool);
 
     /**
-     * Срабатывает при нажатии кнопки "Установить координаты" для камеры
+     * Срабатывает при изменении координат камеры в интерфейсе
      */
-    void ChangeCameraPosition(bool);
+    void ChangeCameraPosition(double);
 
     /**
-     * Срабатывает при нажатии кнопки "Установить углы" для камеры
+     * Срабатывает при изменении углов камеры в интерфейсе
      */
-    void ChangeCameraAngles(bool);
+    void ChangeCameraAngles(double);
 
     /**
      * Срабатывает при нажатии кнопки "Вперед"
@@ -99,19 +99,19 @@ private slots:
     void RotateCameraLeft(bool);
 
     /**
-     * Срабатывает при нажатии кнопки "Установить координаты" для объекта
+     * Срабатывает при изменении координат объекта в интерфейсе
      */
-    void ChangeObjectPosition(bool);
+    void ChangeObjectPosition(double);
 
     /**
-     * Срабатывает при нажатии кнопки "Установить углы" для объекта
+     * Срабатывает при изменении углов объекта в интерфейсе
      */
-    void ChangeObjectAngles(bool);
+    void ChangeObjectAngles(double);
 
     /**
-     * Срабатывает при нажатии кнопки "Установить масштаб" для объекта
+     * Срабатывает при изменении масштаба объекта в интерфейсе
      */
-    void ChangeObjectScale(bool);
+    void ChangeObjectScale(double);
 
     /**
      * Срабатывает при смене камеры в интерфейсе

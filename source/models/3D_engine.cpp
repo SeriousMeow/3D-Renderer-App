@@ -110,6 +110,9 @@ void Engine::RotateCamera(const float yaw_offset, const float pitch_offset) {
 }
 
 void Engine::SetObjectPosition(const renderer::Point& new_position) {
+    if (not scene_.AccessData().HasObject(selected_object_.AccessData())) {  // нет объекта
+        return;
+    }
     auto handle = scene_.GetHandle();
     renderer::SceneObject& object = handle.AccessData().AccessObject(selected_object_.AccessData());
     object.AccessPosition() = new_position;
@@ -117,6 +120,9 @@ void Engine::SetObjectPosition(const renderer::Point& new_position) {
 
 void Engine::SetObjectAngles(const float new_x_angle, const float new_y_angle,
                              const float new_z_angle) {
+    if (not scene_.AccessData().HasObject(selected_object_.AccessData())) {  // нет объекта
+        return;
+    }
     auto handle = scene_.GetHandle();
     renderer::SceneObject& object = handle.AccessData().AccessObject(selected_object_.AccessData());
     object.AccessXAngle() = new_x_angle;

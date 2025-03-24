@@ -17,9 +17,16 @@ EngineController::EngineController(models::Engine* engine, Ui::MainWindow* ui)
 
     connect(ui->LoadFileButton, &QPushButton::clicked, this, &EngineController::LoadFile);
 
-    connect(ui->CameraUpdatePosition, &QPushButton::clicked, this,
+    connect(ui->CameraXSelector, &QDoubleSpinBox::valueChanged, this,
             &EngineController::ChangeCameraPosition);
-    connect(ui->CameraUpdateAngles, &QPushButton::clicked, this,
+    connect(ui->CameraYSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeCameraPosition);
+    connect(ui->CameraZSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeCameraPosition);
+
+    connect(ui->CameraYawSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeCameraAngles);
+    connect(ui->CameraPitchSelector, &QDoubleSpinBox::valueChanged, this,
             &EngineController::ChangeCameraAngles);
 
     connect(ui->CameraMoveForward, &QPushButton::clicked, this,
@@ -37,11 +44,21 @@ EngineController::EngineController(models::Engine* engine, Ui::MainWindow* ui)
             &EngineController::RotateCameraRight);
     connect(ui->CameraRotateLeft, &QPushButton::clicked, this, &EngineController::RotateCameraLeft);
 
-    connect(ui->ObjectUpdatePosition, &QPushButton::clicked, this,
+    connect(ui->ObjectXSelector, &QDoubleSpinBox::valueChanged, this,
             &EngineController::ChangeObjectPosition);
-    connect(ui->ObjectUpdateAngles, &QPushButton::clicked, this,
+    connect(ui->ObjectYSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeObjectPosition);
+    connect(ui->ObjectZSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeObjectPosition);
+
+    connect(ui->ObjectXAngleSelector, &QDoubleSpinBox::valueChanged, this,
             &EngineController::ChangeObjectAngles);
-    connect(ui->ObjectUpdateScale, &QPushButton::clicked, this,
+    connect(ui->ObjectYAngleSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeObjectAngles);
+    connect(ui->ObjectZAngleSelector, &QDoubleSpinBox::valueChanged, this,
+            &EngineController::ChangeObjectAngles);
+
+    connect(ui->ObjectScaleSelector, &QDoubleSpinBox::valueChanged, this,
             &EngineController::ChangeObjectScale);
 
     connect(ui->CameraSelector, &QListWidget::currentItemChanged, this,
@@ -65,7 +82,7 @@ void EngineController::LoadFile(bool) {
     engine_->LoadObjectFromFile(filename.toStdString());
 }
 
-void EngineController::ChangeCameraPosition(bool) {
+void EngineController::ChangeCameraPosition(double) {
     {
         assert(engine_ and "ChangeCameraPosition: engine не может быть nullptr");
         assert(ui_ and "ChangeCameraPosition: ui не может быть nullptr");
@@ -76,7 +93,7 @@ void EngineController::ChangeCameraPosition(bool) {
     engine_->SetCameraPosition(renderer::Vector{new_x, new_y, new_z});
 }
 
-void EngineController::ChangeCameraAngles(bool) {
+void EngineController::ChangeCameraAngles(double) {
     {
         assert(engine_ and "ChangeCameraAngles: engine не может быть nullptr");
         assert(ui_ and "ChangeCameraAngles: ui не может быть nullptr");
@@ -167,7 +184,7 @@ void EngineController::RotateCameraLeft(bool) {
     engine_->RotateCamera(ui_->RotateStep->value(), 0);
 }
 
-void EngineController::ChangeObjectPosition(bool) {
+void EngineController::ChangeObjectPosition(double) {
     {
         assert(engine_ and "ChangeObjectPosition: engine не может быть nullptr");
         assert(ui_ and "ChangeObjectPosition: ui не может быть nullptr");
@@ -178,7 +195,7 @@ void EngineController::ChangeObjectPosition(bool) {
     engine_->SetObjectPosition(renderer::Vector{new_x, new_y, new_z});
 }
 
-void EngineController::ChangeObjectAngles(bool) {
+void EngineController::ChangeObjectAngles(double) {
     {
         assert(engine_ and "ChangeObjectAngles: engine не может быть nullptr");
         assert(ui_ and "ChangeObjectAngles: ui не может быть nullptr");
@@ -189,7 +206,7 @@ void EngineController::ChangeObjectAngles(bool) {
     engine_->SetObjectAngles(new_x_angle, new_y_angle, new_z_angle);
 }
 
-void EngineController::ChangeObjectScale(bool) {
+void EngineController::ChangeObjectScale(double) {
     {
         assert(engine_ and "ChangeObjectScale: engine не может быть nullptr");
         assert(ui_ and "ChangeObjectScale: ui не может быть nullptr");
