@@ -1,5 +1,7 @@
 #include "object_info.hpp"
 
+#include <QSignalBlocker>
+
 namespace app::gui {
 
 ObjectInfo::ObjectInfo(QDoubleSpinBox* x, QDoubleSpinBox* y, QDoubleSpinBox* z,
@@ -52,6 +54,9 @@ void ObjectInfo::UpdatePosition(const renderer::Point& position) {
         assert(y_field_ and "ObjectInfo::UpdatePosition: y_field_ не должен быть nullptr");
         assert(z_field_ and "ObjectInfo::UpdatePosition: z_field_ не должен быть nullptr");
     }
+    QSignalBlocker lock_x{x_field_};
+    QSignalBlocker lock_y{y_field_};
+    QSignalBlocker lock_z{z_field_};
     x_field_->setValue(position.x);
     y_field_->setValue(position.y);
     z_field_->setValue(position.z);
@@ -66,6 +71,9 @@ void ObjectInfo::UpdateAngles(const ObjectAngles& angles) {
         assert(z_angle_field_ and
                "ObjectInfo::UpdateAngles: z_angle_field_ не должен быть nullptr");
     }
+    QSignalBlocker lock_x{x_angle_field_};
+    QSignalBlocker lock_y{y_angle_field_};
+    QSignalBlocker lock_z{z_angle_field_};
     x_angle_field_->setValue(angles.x_angle);
     y_angle_field_->setValue(angles.y_angle);
     z_angle_field_->setValue(angles.z_angle);
@@ -75,6 +83,7 @@ void ObjectInfo::UpdateScale(const float scale) {
     {
         assert(scale_field_ and "ObjectInfo::UpdateScale: scale_field_ не должен быть nullptr ");
     }
+    QSignalBlocker lock_scale{scale_field_};
     scale_field_->setValue(scale);
 }
 
