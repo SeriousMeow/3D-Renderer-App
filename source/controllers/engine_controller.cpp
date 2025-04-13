@@ -74,8 +74,7 @@ void EngineController::LoadFile(bool) {
         assert(engine_ and "LoadFile: engine не может быть nullptr");
         assert(ui_ and "LoadFile: ui не может быть nullptr");
     }
-    QString filename =
-        QFileDialog::getOpenFileName(ui_->centralwidget, "Открыть файл", "", "OBJ Файлы(*obj)");
+    QString filename = QFileDialog::getOpenFileName(ui_->centralwidget, "Открыть файл", "", "");
     if (filename.isEmpty()) {
         return;
     }

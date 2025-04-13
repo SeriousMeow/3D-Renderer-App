@@ -8,10 +8,15 @@ Engine::Engine()
     : on_scene_change_{[this](const Scene&) { Render(); }, [this](const Scene&) { Render(); },
                        [this](const Scene&) { Render(); }},
       rendered_image_{Image{renderer::Width{0}, renderer::Height{0}}} {
-    CameraId camera_id = scene_.GetHandle().AccessData().PushCamera(renderer::Camera{});
-    available_cameras_.GetHandle().AccessData().push_back(camera_id);
-    selected_camera_.GetHandle().AccessData() = camera_id;
+    SpawnCamera();
     scene_.Subscribe(&on_scene_change_);
+    {
+        // пока нет управления освещением, оно задается статически
+        auto handle = scene_.GetHandle();
+        handle.AccessData().PushLight(
+            renderer::DirectionalLight{.strength = 1, .direction = {-1, 0, 0}});
+        handle.AccessData().PushLight(renderer::AmbientLight{});
+    }
 }
 
 void Engine::SubscribeSelectedCamera(ports::PortIn<CameraId>* port) {
@@ -47,19 +52,20 @@ void Engine::Resize(const Width width, const Height height) {
 void Engine::SpawnCamera() {
     CameraId new_camera;
     auto handle = scene_.GetHandle();
-    new_camera = handle.AccessData().PushCamera(renderer::Camera{});
+    new_camera =
+        handle.AccessData().PushCamera(renderer::Camera{renderer::Point{0, 0, 0}, 0, 0, 90, 0.1});
     available_cameras_.GetHandle().AccessData().push_back(new_camera);
     selected_camera_.GetHandle().AccessData() = new_camera;
 }
 
 void Engine::LoadObjectFromFile(const std::string& path) {
-    try {
-        renderer::Object new_object = renderer::utils::LoadObjFile(path);
-        ObjectId object_id = scene_.GetHandle().AccessData().PushObject(new_object);
-        available_objects_.GetHandle().AccessData().push_back(object_id);
-        selected_object_.GetHandle().AccessData() = object_id;
-    } catch (...) {
+    renderer::Object new_object = renderer::utils::LoadFile(path);
+    if (new_object.Begin() == new_object.End()) {  // пустой объект
+        return;
     }
+    ObjectId object_id = scene_.GetHandle().AccessData().PushObject(new_object);
+    available_objects_.GetHandle().AccessData().push_back(object_id);
+    selected_object_.GetHandle().AccessData() = object_id;
 }
 
 void Engine::SwitchCamera(const CameraId new_camera_id) {
@@ -131,6 +137,9 @@ void Engine::SetObjectAngles(const float new_x_angle, const float new_y_angle,
 }
 
 void Engine::SetObjectScale(const float new_scale) {
+    if (not scene_.AccessData().HasObject(selected_object_.AccessData())) {  // нет объекта
+        return;
+    }
     auto handle = scene_.GetHandle();
     renderer::SceneObject& object = handle.AccessData().AccessObject(selected_object_.AccessData());
     object.AccessScale() = new_scale;
@@ -138,7 +147,8 @@ void Engine::SetObjectScale(const float new_scale) {
 
 void Engine::Render() {
     Image image{renderer::Width{width_}, renderer::Height{height_}};
-    image = renderer_.Render(scene_.AccessData(), selected_camera_.AccessData(), std::move(image));
+    image = renderer_.Render(scene_.AccessData(), selected_camera_.AccessData(), std::move(image),
+                             renderer::Renderer::DRAW_FACETS | renderer::Renderer::ENABLE_LIGHT);
     rendered_image_.GetHandle().AccessData() = std::move(image);
 }
 
