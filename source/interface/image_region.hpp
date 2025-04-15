@@ -18,14 +18,14 @@ namespace gui {
 /**
  * @brief Класс взаимодействия с областью отрисовки
  */
-class View {
+class ImageRegion {
 public:
     /**
      * @brief Создание View
      *
      * @param[in] render_region QLabel, на который будет отрисовываться изображение
      */
-    explicit View(QLabel* render_region);
+    explicit ImageRegion(QLabel* render_region);
 
     /**
      * @brief Получение указателя на порт сцены

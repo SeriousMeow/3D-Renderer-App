@@ -3,7 +3,7 @@
 namespace app {
 
 App::App() : AppKernel{}, AppGUI{&engine_} {
-    engine_.SubscribeImage(view_.GetImagePort());
+    engine_.SubscribeImage(image_region_.GetImagePort());
     engine_.SubscribeSelectedCamera(camera_monitor_.GetCameraPort());
     engine_.SubscribeScene(camera_monitor_.GetScenePort());
 

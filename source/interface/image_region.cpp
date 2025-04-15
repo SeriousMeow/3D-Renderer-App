@@ -1,4 +1,4 @@
-#include "view.hpp"
+#include "image_region.hpp"
 
 namespace app::gui {
 
@@ -27,7 +27,7 @@ QPixmap ToPixmap(const renderer::Image& image) {
 
 }  // namespace
 
-View::View(QLabel* render_region)
+ImageRegion::ImageRegion(QLabel* render_region)
     : render_region_{render_region},
       image_port_{[this](const renderer::Image& image) { Draw(image); }} {
     {
@@ -35,7 +35,7 @@ View::View(QLabel* render_region)
     }
 }
 
-void View::Draw(const renderer::Image& image) {
+void ImageRegion::Draw(const renderer::Image& image) {
     if (image.GetWidth() == 0 or image.GetHeight() == 0) {
         return;
     }
@@ -49,7 +49,7 @@ void View::Draw(const renderer::Image& image) {
     render_region_->setPixmap(ToPixmap(image));
 }
 
-ports::PortIn<renderer::Image>* View::GetImagePort() {
+ports::PortIn<renderer::Image>* ImageRegion::GetImagePort() {
     return &image_port_;
 }
 
