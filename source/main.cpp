@@ -4,10 +4,10 @@
 #include "except.hpp"
 
 int main(int argc, char* argv[]) {
+    QApplication qruntime(argc, argv);
     try {
-        QApplication app(argc, argv);
-        app::App renderer_app;
-        return app.exec();
+        app::App app;
+        return qruntime.exec();
     } catch (...) {
         return app::except::React();
     }
