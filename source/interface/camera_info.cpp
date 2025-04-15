@@ -6,14 +6,8 @@ namespace app::gui {
 
 CameraInfo::CameraInfo(QDoubleSpinBox* x, QDoubleSpinBox* y, QDoubleSpinBox* z, QDoubleSpinBox* yaw,
                        QDoubleSpinBox* pitch)
-    : camera_position_{[this](const renderer::Point& position) { UpdatePosition(position); },
-                       [this](const renderer::Point& position) { UpdatePosition(position); },
-                       [this](const renderer::Point& position) { UpdatePosition(position); }},
-      camera_angles_{[this](const CameraAngles& angles) { UpdateAngles(angles); },
-                     [this](const CameraAngles& angles) { UpdateAngles(angles); },
-                     [this](const CameraAngles& angles) { UpdateAngles(angles); }
-
-      },
+    : camera_position_{[this](const renderer::Point& position) { UpdatePosition(position); }},
+      camera_angles_{[this](const CameraAngles& angles) { UpdateAngles(angles); }},
       x_field_{x},
       y_field_{y},
       z_field_{z},

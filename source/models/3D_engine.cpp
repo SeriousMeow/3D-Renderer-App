@@ -5,8 +5,7 @@
 namespace app::models {
 
 Engine::Engine()
-    : on_scene_change_{[this](const Scene&) { Render(); }, [this](const Scene&) { Render(); },
-                       [this](const Scene&) { Render(); }},
+    : on_scene_change_{[this](const Scene&) { Render(); }},
       rendered_image_{Image{renderer::Width{0}, renderer::Height{0}}} {
     SpawnCamera();
     scene_.Subscribe(&on_scene_change_);

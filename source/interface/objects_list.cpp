@@ -6,15 +6,9 @@ namespace app::gui {
 
 ObjectsList::ObjectsList(QListWidget* objects_list)
     : objects_list_field_{objects_list},
-      objects_list_{[this](const std::vector<ObjectId>& list) { UpdateObjectsList(list); },
-                    [this](const std::vector<ObjectId>& list) { UpdateObjectsList(list); },
-                    [this](const std::vector<ObjectId>& list) { UpdateObjectsList(list); }},
+      objects_list_{[this](const std::vector<ObjectId>& list) { UpdateObjectsList(list); }},
       selected_object_{
-          [this](const ObjectId new_object_id) { UpdateSelectedObject(new_object_id); },
-          [this](const ObjectId new_object_id) { UpdateSelectedObject(new_object_id); },
-          [this](const ObjectId new_object_id) { UpdateSelectedObject(new_object_id); }}
-
-{
+          [this](const ObjectId new_object_id) { UpdateSelectedObject(new_object_id); }} {
     {
         assert(objects_list and "ObjectsList: objects_list не должен быть nullptr");
     }

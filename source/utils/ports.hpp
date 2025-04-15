@@ -128,6 +128,26 @@ public:
         }
     }
 
+    /**
+     * @brief Создание порта
+     *
+     * Регистрирует функцию, которая должна вызываться при подписке на порт, получении обновления
+     * данных и отписке от порта
+     *
+     * @param[in] on_event Функция, вызываемая при подключении
+     */
+    template <class T>
+    PortIn(T&& on_event)
+        : on_subscribe_{std::forward<T>(on_event)},
+          on_notify_{std::forward<T>(on_event)},
+          on_unsubscribe_{std::forward<T>(on_event)} {
+        {
+            assert(on_subscribe_ and "PortIn: on_subscribe не должен быть пуст");
+            assert(on_notify_ and "PortIn: on_notify не должен быть пуст");
+            assert(on_unsubscribe_ and "PortIn: on_unsubscribe не должен быть пуст");
+        }
+    }
+
     PortIn(const PortIn&) = delete;
     PortIn(PortIn&&) noexcept = delete;
     PortIn& operator=(const PortIn&) = delete;

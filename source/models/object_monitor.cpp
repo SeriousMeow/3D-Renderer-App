@@ -3,13 +3,8 @@
 namespace app::models {
 
 ObjectMonitor::ObjectMonitor()
-    : scene_{[this](const Scene&) { UpdateData(); },
-
-             [this](const Scene&) { UpdateData(); },
-
-             [this](const Scene&) { UpdateData(); }},
-      selected_object_{[this](ObjectId) { UpdateData(); }, [this](ObjectId) { UpdateData(); },
-                       [this](ObjectId) { UpdateData(); }} {
+    : scene_{[this](const Scene&) { UpdateData(); }},
+      selected_object_{[this](ObjectId) { UpdateData(); }} {
 }
 
 void ObjectMonitor::SubscribeObjectPosition(ports::PortIn<renderer::Point>* port) {

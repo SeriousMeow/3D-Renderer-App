@@ -6,15 +6,9 @@ namespace app::gui {
 
 CamerasList::CamerasList(QListWidget* cameras_list)
     : cameras_list_field_{cameras_list},
-      cameras_list_{[this](const std::vector<CameraId>& list) { UpdateCamerasList(list); },
-                    [this](const std::vector<CameraId>& list) { UpdateCamerasList(list); },
-                    [this](const std::vector<CameraId>& list) { UpdateCamerasList(list); }},
+      cameras_list_{[this](const std::vector<CameraId>& list) { UpdateCamerasList(list); }},
       selected_camera_{
-          [this](const CameraId new_camera_id) { UpdateSelectedCamera(new_camera_id); },
-          [this](const CameraId new_camera_id) { UpdateSelectedCamera(new_camera_id); },
-          [this](const CameraId new_camera_id) { UpdateSelectedCamera(new_camera_id); }}
-
-{
+          [this](const CameraId new_camera_id) { UpdateSelectedCamera(new_camera_id); }} {
     {
         assert(cameras_list and "CamerasList: cameras_list не должен быть nullptr");
     }

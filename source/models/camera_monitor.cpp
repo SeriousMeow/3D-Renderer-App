@@ -3,10 +3,8 @@
 namespace app::models {
 
 CameraMonitor::CameraMonitor()
-    : scene_{[this](const Scene&) { UpdateData(); }, [this](const Scene&) { UpdateData(); },
-             [this](const Scene&) { UpdateData(); }},
-      selected_camera_{[this](CameraId) { UpdateData(); }, [this](CameraId) { UpdateData(); },
-                       [this](CameraId) { UpdateData(); }} {
+    : scene_{[this](const Scene&) { UpdateData(); }},
+      selected_camera_{[this](CameraId) { UpdateData(); }} {
 }
 
 void CameraMonitor::SubscribeCameraPosition(ports::PortIn<renderer::Point>* port) {

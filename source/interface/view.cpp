@@ -4,11 +4,7 @@ namespace app::gui {
 
 View::View(QLabel* render_region)
     : render_region_{render_region},
-      image_port_{[this](const renderer::Image& image) { Draw(image); },
-                  [this](const renderer::Image& image) { Draw(image); },
-                  [this](const renderer::Image& image) { Draw(image); }
-
-      } {
+      image_port_{[this](const renderer::Image& image) { Draw(image); }} {
     {
         assert(render_region and "View: render_region не может быть nullptr");
     }
@@ -31,6 +27,7 @@ void View::Draw(const renderer::Image& image) {
     // Изображения имеют одинаковый размер, нужно сконвертировать пиксели одного в другое
     // Чтобы избавиться от проверок со стороны Qt, запись идет сразу во внутреннюю память
     // Для Format_RGB32 пиксели хранятся строками сверху вниз
+    // Документация Qt просит пользоваться этим через reinterpret_cast к типу пикселя изображения
     QRgb* intermediate_data = reinterpret_cast<QRgb*>(intermediate_image.bits());
     const renderer::Image::Pixel* image_data = image.AccessData();
     for (size_t i = 0; i < image.GetHeight() * image.GetWidth(); ++i) {
