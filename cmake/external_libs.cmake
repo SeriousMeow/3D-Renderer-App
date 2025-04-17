@@ -5,7 +5,7 @@ set(FETCHCONTENT_QUIET FALSE)
 FetchContent_Declare(
   Renderer
   GIT_REPOSITORY https://github.com/SeriousMeow/3D-Renderer
-  GIT_TAG 67ccf0bef226c0292a5b5f823ce8b57f516c4182
+  GIT_TAG 02e52865ef03419a0e0104f529c29b83a04d61be
   GIT_PROGRESS TRUE)
 
 FetchContent_MakeAvailable(Renderer)

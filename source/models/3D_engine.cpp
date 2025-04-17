@@ -13,8 +13,9 @@ Engine::Engine()
         // пока нет управления освещением, оно задается статически
         auto handle = scene_.GetHandle();
         handle.AccessData().PushLight(
-            renderer::DirectionalLight{.strength = 1, .direction = {-1, 0, 0}});
-        handle.AccessData().PushLight(renderer::AmbientLight{});
+            renderer::DirectionalLight{.strength = 0.2, .direction = {-1, 0, 0}});
+        handle.AccessData().PushLight(renderer::AmbientLight{.strength = 0.5});
+        handle.AccessData().PushLight(renderer::PointLight{.strength = 10, .position = {0, 0, 3}});
     }
 }
 
